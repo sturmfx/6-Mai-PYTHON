@@ -11,13 +11,14 @@ def spin_wheel():
     random.shuffle(numbers)
     return numbers
 
-def bet():
+def bet(points):
     while True:
-        bet = input("Enter your bet (0 - 36, or 00): ")
-        if bet in [str(i) for i in range(37)] +  ["00"]:
-            return bet
-        else:
-            print("Invalid input!")
+        bet = input("Enter your bet (0 - 36, or 00), RED or BLACK: ")
+        if bet == "RED" or bet == "BLACK":
+            return bet, points
+        elif bet in [str(i) for i in range(37)]:
+            while True:
+                bet_
 
 def play_game():
     print("Welcome to game!")
