@@ -7,22 +7,20 @@ def print_ruletka(numbers):
             print(f"test2")
 
 def spin_wheel():
-    numbers = [str(i) for i in range(37)] +  ["00"]
+    numbers = [str(i) for i in range(37)]
     random.shuffle(numbers)
     return numbers
 
 def bet(points):
     while True:
-        bet = input("Enter your bet (0 - 36, or 00), RED or BLACK: ")
-        if bet == "RED" or bet == "BLACK":
-            return bet, points
-        elif bet in [str(i) for i in range(37)]:
+        bet_input = input("Enter your bet (0 - 36, or 00), RED or BLACK: ")
+        if bet_input in [str(i) for i in range(37)] + ["RED"] + ["BLACK"]:
             while True:
                 bet_amount = input("ENTER YOUR BET: ")
                 try:
                     bet_amount = int(bet_amount)
                     if bet_amount <= points and bet_amount > 0:
-                        return bet, bet_amount
+                        return bet_input, bet_amount
                     else:
                         print("Invalid input or insufficient points.")
                 except ValueError:
@@ -46,7 +44,14 @@ def play_game():
             print(f"You won {bet_amount * 2}! Winning number was {winning_number} (color was BLACK)")
             point_bank = point_bank + bet_amount
         elif bet_num == winning_number:
-            
+            print(f"You won {bet_amount * 36} points. Winning number was {winning_number}")
+            point_bank = point_bank + bet_amount * 36
+        else:
+            print(f"You lost! Winning number was {winning_number}")
+            point_bank = point_bank - bet_amount
+        if point_bank <= 0:
+            print("You have run out of points!")
+            break
         play_again = input("Do you want to play again? (y/n): ").lower()
         if play_again != "y":
             break
